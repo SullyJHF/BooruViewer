@@ -1,0 +1,100 @@
+/* CSS Document */
+
+html, body{
+	height:100%;
+	width:100%;
+	font:30px, Arial, Helvetica, sans-serif;
+	background:#222;
+	color:#CCC;
+}
+img {
+	border-radius:5px;
+}
+#hidden {
+	width:10px;
+	height:10px;
+	top:0;
+	float:right;
+	opacity:0;
+	position:relative;
+}
+#pictures{
+	text-align:center;
+}
+span {
+  position:absolute; 
+  width:100%;
+  height:100%;
+  top:0;
+  left: 0;
+  z-index: 1;
+  opacity:0;
+} 
+
+
+#container{   
+    width:100%;   
+    margin:0px auto;   
+    padding:40px 0;   
+}  
+#scrollbox{   
+    width:100%;   
+    height:100%;    
+    overflow:auto; overflow-x:hidden;   
+}  
+#container > p{   
+    background:#eee;   
+    color:#666;   
+    font-family:Arial, sans-serif; font-size:0.75em;   
+    padding:5px; margin:0;   
+    text-align:rightright;  
+}
+#content .grid-item {
+	margin-bottom:5px;
+	float:left;
+}
+
+#notFound{
+	left:40%;
+	right:40%;
+	margin-top:10px;
+	text-align:center;
+	background:#222;
+	position:fixed;
+	z-index:20;
+	padding-top:10px;
+	padding-bottom:10px;
+	opacity:0.8;
+	border-radius:5px;
+}
+
+#noContent {
+	left:20%;
+	right:20%;
+	margin-top:10px;
+	text-align:center;
+	background:#222;
+	position:fixed;
+	z-index:20;
+	padding-top:10px;
+	padding-bottom:10px;
+	opacity:0.8;
+	border-radius:5px;
+}
+
+form{
+	font-family: 'Droid Sans', sans-serif;
+}
+p{
+	font-family: 'Droid Sans', sans-serif;
+}
+
+#notFound p{
+	font-family: 'Droid Sans', sans-serif;
+	font-size:50px;
+}
+
+#noContent p{
+	font-family: 'Droid Sans', sans-serif;
+	font-size:50px;
+}
