@@ -1,11 +1,15 @@
 /* CSS Document */
 
 html, body{
-	height:100%;
-	width:100%;
+	max-height:100%;
+	max-width:100%;
 	font:30px, Arial, Helvetica, sans-serif;
 	background:#222;
 	color:#CCC;
+}
+body{
+	padding-top: 5px;
+	overflow-x: hidden;
 }
 img {
 	border-radius:5px;
