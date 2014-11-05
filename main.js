@@ -34,6 +34,7 @@ if(localTags != " "){
 
 var sfw = localStorage.getItem("sfw").split(",");
 console.log(sfw);
+if(sfw[0] != 'x' && sfw[0] != 'q' && sfw[0] != 's') sfw[0] = 's';
 if(sfw[0] != "") document.title = "- "+document.title;
 for(i = 0; i < sfw.length; i++){
 	document.title = sfw[i].toUpperCase() +" "+ document.title;
@@ -322,13 +323,13 @@ $('#formSubmit').click(function(){
 });
 
 console.log($.inArray('s', sfw));
-if($.inArray('x', sfw) == 0){
+if($.inArray('x', sfw) >= 0){
 	$('#x').prop('checked', true);
 }
-if($.inArray('q', sfw) == 0){
+if($.inArray('q', sfw) >= 0){
 	$('#q').prop('checked', true);
 }
-if($.inArray('s', sfw) == 0){
+if($.inArray('s', sfw) >= 0){
 	$('#s').prop('checked', true);
 }
 

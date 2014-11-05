@@ -180,7 +180,7 @@ h2 {
 	background:#222;
 	border-radius: 5px;
 	z-index:19;
-	height:275px;
+	height:340px;
 	width:500px;
 	padding:20px;
 	font-family: 'Droid Sans', sans-serif;
@@ -201,4 +201,8 @@ li {
 	font-size: 13px;
 	margin-left:25px;
 	margin-bottom:3px;
+}
+
+small {
+	font-size: smaller;
 }

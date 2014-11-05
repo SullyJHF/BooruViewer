@@ -21,8 +21,9 @@
 			<div class="close">x</div>
 			<h2>Help:</h2><br>
 			<ul>
-				<li>This site is designed for viewing images from your favourite booru sites.</li>
-				<li>This popup will only show when you first visit the site, but you can access it again in the future with the 'H' key if you so wish.</li>
+				<li>This site is designed for viewing images from your favourite booru sites</li>
+				<li>Click on any image to open the image in a new tab</li>
+				<li>This popup will only show when you first visit the site, but you can access it again in the future with the 'H' key if you so wish</li>
 				<li>To load more images you can scroll to the bottom of the page  or press 'L'</li>
 				<li>Press 'O' for options</li>
 				<li class="sub">Rating - How safe for work you want the images to be</li>
@@ -32,6 +33,8 @@
 				<li class="sub">Clear - Clears the form</li>
 				<li class="sub">Log Out - Logs you off the page</li>
 			</ul>
+			<br>
+			<small>I do not own any of the images on this site, contact the respective Booru's admins if you have issues with any pictures you see</small>
 		</div>
 		<div id="options" style="display:none;">
 			<div id="tagForm">
