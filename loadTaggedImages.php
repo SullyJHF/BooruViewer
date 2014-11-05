@@ -1,10 +1,13 @@
 <?php
 
 	function loadImages($page, $sfw, $tags, $loaded = 0, $gutter){
-		echo $gutter;
+		// print_r($_POST);
+		// echo "<br>";
+		// echo $gutter;
 		if($tags === ""){
 			$tags = " ";
 		}
+
 		if($loaded === 1 || checkTags($tags)){
 			$content = file_get_contents('http://konachan.com/post.xml?page='.$page.'&tags='.$tags);
 			$xml = new SimpleXMLElement($content);
@@ -24,7 +27,23 @@
 									'</a>'.
 								'</div>';
 
-				if($sfw == 1){
+				if(in_array('x', $sfw)){ // explicit
+					if($rating == 'e'){
+						echo $currentDiv.'`';
+					}
+				}
+				if(in_array('q', $sfw)){ // questionable
+					if($rating == 'q'){
+						echo $currentDiv.'`';
+					}
+				}
+				if(in_array('s', $sfw)){ // safe
+					if($rating == 's'){
+						echo $currentDiv.'`';
+					}
+				}
+
+				/*if($sfw == 1){
 					if($rating == 's'){
 						echo $currentDiv.'`';
 					}
@@ -34,13 +53,11 @@
 					}
 				} else if($sfw == 3){
 					if($rating == 'e'){
-						
 						echo $currentDiv.'`';
 					}
 				} else {
 					echo $currentDiv.'`';
-				}
-				
+				}*/
 			}
 		}
 	}
@@ -89,15 +106,16 @@
 			return true;
 		}
 	}
-	
+
 	if((isset($_POST['pageNo']) && !empty($_POST['pageNo'])) &&
 			(isset($_POST['sfw']) &&!empty($_POST['sfw'])) &&
 			(isset($_POST['tags']) && !empty($_POST['tags'])) &&
-			(isset($_POST['gutter']) && !empty($_POST['gutter']))) {
+			(isset($_POST['gutter']) && !empty($_POST['gutter']))){
 		$pageNo = $_POST['pageNo'];
 		$sfw = $_POST['sfw'];
 		$tags = $_POST['tags'];
+		$loaded = $_POST['loaded'];
 		$gutter = $_POST['gutter'];
-		loadImages($pageNo, $sfw, $tags, 0, (string)$gutter);
+		loadImages($pageNo, $sfw, $tags, $loaded, $gutter);
 	}
 ?>

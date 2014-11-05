@@ -9,9 +9,11 @@ var imageCount = parseInt((startW)/imageWidth);
 var widthOfImages = (imageCount*imageWidth);
 var gutterSize = (startW-widthOfImages)/(imageCount+1);
 $('#content').css('margin-left', gutterSize);
+$('body').css('margin-top', gutterSize);
+$('#formGutter').val(String(gutterSize));
 // console.log(startW);
 // console.log(parseInt(gutterSize));
-// console.log(gutterSize);
+// console.log(String(gutterSize));
 
 var newURL = window.location.search;
 if(newURL != ""){
@@ -23,25 +25,18 @@ if(newURL != ""){
 }
 
 var localTags = localStorage.getItem("tags");
-if(localTags == null){
+if(localTags == null || localTags == ""){
 	localTags = " ";
 }
 if(localTags != " "){
 	document.title = localTags;
 }
 
-var localSfw = localStorage.getItem("sfw");
-if(localSfw == null){
-	var sfw = 1;
-} else {
-	var sfw = localSfw;
-}
-if(sfw == 1){
-	document.title = "U - "+document.title;
-} else if(sfw == 2){
-	document.title = "R - "+document.title;
-} else if(sfw == 3){
-	document.title = "X - "+document.title;
+var sfw = localStorage.getItem("sfw").split(",");
+console.log(sfw);
+if(sfw[0] != "") document.title = "- "+document.title;
+for(i = 0; i < sfw.length; i++){
+	document.title = sfw[i].toUpperCase() +" "+ document.title;
 }
 
 var container = document.querySelector('#content');
@@ -88,6 +83,7 @@ function loadMore(i){
 				gutter: gutterSize},
 		type: 'POST',
 		success: function(output) {
+			console.log(output);
 			if(output == " "){
 				$("#notFound").show(300).delay(5000).hide(300);
 				localTags = " ";
@@ -203,11 +199,16 @@ i = (typeof i === "undefined") ? 20 : i;
 start();
 moveMasonry();
 
+var optionsOpen = false;
+var helpOpen = false;
+
 window.onkeyup = function(e) {
 	var key = e.keyCode ? e.keyCode : e.which;
 	var helpText = "Enter tags to search for, seperated with spaces:\nYou can use advanced tags like \"width:1024\" and \"order:wide\"";
 	
-	if(key == 83){
+	if($(e.target).is('input')) return;
+
+	/*if(key == 83){
 		if(localTags == " "){
 			var tags = prompt(helpText, "hatsune_miku");
 		} else {
@@ -215,45 +216,60 @@ window.onkeyup = function(e) {
 		}
 		if(tags == "" || tags == null){
 			tags = " ";
-			localStorage.setItem("tags", tags);
+			// localStorage.setItem("tags", tags);
 		} else {
-			localStorage.setItem("tags", tags);
+			// localStorage.setItem("tags", tags);
 			window.location = window.location;
 		}
-	} else if(key == 76){
+	} else */if(key == 76){ // l
 		loadMore();
-	} else if(key == 49 || key == 85){
-		localStorage.setItem("sfw", 1); //sfw
+	} /*else if(key == 49 || key == 85){ // 1 or u
+		// localStorage.setItem("sfw", 1); //sfw
 		window.location = window.location;
-	} else if(key == 50 || key == 82){
-		localStorage.setItem("sfw", 2); //explicit + questionable
+	} else if(key == 50 || key == 82){ // 2 or r
+		// localStorage.setItem("sfw", 2); //explicit + questionable
 		window.location = window.location;
-	} else if(key == 51 || key == 88){
-		localStorage.setItem("sfw", 3); //explicit only
+	} else if(key == 51 || key == 88){ // 3 or x
+		// localStorage.setItem("sfw", 3); //explicit only
 		window.location = window.location;
-	} else if(key == 52 || key == 69){
-		localStorage.setItem("sfw", 4); //everything
+	} else if(key == 52 || key == 69){ // 4 or e
+		// localStorage.setItem("sfw", 4); //everything
 		window.location = window.location;
-	} else if(key == 68 || key == 48 || key == 52){ 
-		localStorage.setItem("sfw", 4); //default (all)
-		localStorage.setItem("tags", " ");
+	} else if(key == 48 || key == 68){ // 0 or d
+		// localStorage.setItem("sfw", 4); //default (all)
+		// localStorage.setItem("tags", " ");
 		window.location = window.location;
-	} else if(key == 72){ 
-		alert("Help:\n\n"+
-				"Scroll to bottom to load more\n\n"+
-				"1/U - Show safe for work posts\n"+
-				"2/R - Show explicit and questionable posts\n"+
-				"3/X - Show only explicit posts\n"+
-				"4/E - Show all posts with given tags\n"+
-				"0/D - Default, resets all search and rating options\n"+
-				"S - Search for tags\n"+
-				"L - Load more if stuck\n"+
-				"Esc - Logout");
-	} else if(key == 27){
+	}*/ else if(key == 72 && !helpOpen){ // h
+		helpOpen = true;
+		optionsOpen = false;
+		$('#options').fadeOut(200);
+		$('#help').fadeIn(200);
+		$('#dark').fadeIn(200);
+	} else if(key == 72 && helpOpen){ // h
+		helpOpen = false;
+		$('#help').fadeOut(200);
+		$('#dark').fadeOut(200);
+	} else if(key == 27 && !optionsOpen && !helpOpen){ // escape
 		$.post("end.php", function(){
 			refresh();
 		});
 		//setTimeout(function(){refresh();}, 2000);
+	} else if(key == 27 && (optionsOpen || helpOpen)){ // escape
+		optionsOpen = false;
+		helpOpen = false;
+		$('#help').fadeOut(200);
+		$('#options').fadeOut(200);
+		$('#dark').fadeOut(200);
+	} else if(key == 79 && !optionsOpen){ // o
+		optionsOpen = true;
+		helpOpen = false;
+		$('#help').fadeOut(200);
+		$('#options').fadeIn(200);
+		$('#dark').fadeIn(200);
+	} else if(key == 79 && optionsOpen){ // o
+		optionsOpen = false;
+		$('#options').fadeOut(200);
+		$('#dark').fadeOut(200);
 	}
 }
 
@@ -265,4 +281,64 @@ function checkScroll(){
 	return $(document).height() > $(window).height();
 }
 
+$('#dark').click(function(){
+	optionsOpen = false;
+	helpOpen = false;
+	$('#help').fadeOut(200);
+	$('#options').fadeOut(200);
+	$('#dark').fadeOut(200);
+});
+
+$('.close').click(function(){
+	optionsOpen = false;
+	helpOpen = false;
+	$('#help').fadeOut(200);
+	$('#options').fadeOut(200);
+	$('#dark').fadeOut(200);
+});
+
+$('#loadMore').click(function(){
+	loadMore();
+});
+
+$('#logOut').click(function(){
+	$.post("end.php", function(){
+		refresh();
+	});
+});
+
+$('#formSubmit').click(function(){
+	var tags = $('#inputTags').val()
+	localStorage.setItem("tags", tags);
+	var sfw = [];
+	if($('#x').prop('checked')) sfw.push('x');
+	if($('#q').prop('checked')) sfw.push('q');
+	if($('#s').prop('checked')) sfw.push('s');
+	if(sfw[0] == null || sfw[0] == 'undefined') sfw.push('s');
+	localStorage.setItem("sfw", sfw);
+	window.location = window.location;
+	// console.log(sfw);
+	// console.log(tags)
+});
+
+console.log($.inArray('s', sfw));
+if($.inArray('x', sfw) == 0){
+	$('#x').prop('checked', true);
+}
+if($.inArray('q', sfw) == 0){
+	$('#q').prop('checked', true);
+}
+if($.inArray('s', sfw) == 0){
+	$('#s').prop('checked', true);
+}
+
+$('#inputTags').val(localTags);
+$(document).ready(function(){
+	if(localStorage.getItem("returnUser") != '1'){
+		helpOpen = true;
+		$('#help').fadeIn(200);
+		$('#dark').fadeIn(200);
+		localStorage.setItem('returnUser', '1');
+	}
+});
 $(window).scroll(bindScroll);

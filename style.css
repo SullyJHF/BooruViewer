@@ -8,7 +8,6 @@ html, body{
 	color:#CCC;
 }
 body{
-	padding-top: 5px;
 	overflow-x: hidden;
 }
 img {
@@ -33,26 +32,8 @@ span {
   left: 0;
   z-index: 1;
   opacity:0;
-} 
-
-
-#container{   
-    width:100%;   
-    margin:0px auto;   
-    padding:40px 0;   
-}  
-#scrollbox{   
-    width:100%;   
-    height:100%;    
-    overflow:auto; overflow-x:hidden;   
-}  
-#container > p{   
-    background:#eee;   
-    color:#666;   
-    font-family:Arial, sans-serif; font-size:0.75em;   
-    padding:5px; margin:0;   
-    text-align:rightright;  
 }
+
 #content .grid-item {
 	margin-bottom:1px;
 	float:left;
@@ -101,4 +82,123 @@ p{
 #noContent p{
 	font-family: 'Droid Sans', sans-serif;
 	font-size:50px;
+}
+
+#options {
+	position:fixed;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	margin:auto;
+	background:#222;
+	border-radius: 5px;
+	z-index:19;
+	height:205px;
+	width:300px;
+	padding:20px;
+	font-family: 'Droid Sans', sans-serif;
+	border: solid 2px #ccc;
+}
+
+h2 {
+	font-family: 'Droid Sans', sans-serif;
+	font-weight: 600;
+	text-decoration: underline;
+}
+
+#options small {
+	font-family: 'Droid Sans', sans-serif;
+	font-weight: 200;
+	text-decoration: none;
+	font-size: 10px
+}
+
+#dark {
+	opacity:0.85;
+	position:fixed;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	margin:auto;
+	background:#000;
+	z-index:10;
+	height:auto;
+	width:auto;
+}
+
+.close {
+	float:right;
+	font-family: 'Droid Sans', sans-serif;
+	font-size:40px;
+	font-weight: 600;
+	margin-top:-10px;
+}
+
+.close:hover {
+	color: #aaa;
+	cursor: pointer;
+}
+
+#tagForm {
+	position: absolute;
+	width:inherit;
+	margin:0 auto;
+}
+
+#tagForm form{
+	position: absolute;
+	width:inherit;
+	margin:0 auto;
+}
+
+.rightOut {
+	position:absolute;
+	right:0;
+	bottom:0;
+}
+.rightLoad {
+	position: absolute;
+	right:0;
+	bottom: 25px
+}
+
+.space {
+	float:right;
+	clear:right;
+	height:153px;
+}
+
+#help {
+	position:fixed;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+	margin:auto;
+	background:#222;
+	border-radius: 5px;
+	z-index:19;
+	height:275px;
+	width:500px;
+	padding:20px;
+	font-family: 'Droid Sans', sans-serif;
+	border: solid 2px #ccc;
+}
+
+#help ul {
+	position:relative;
+	list-style-type: disc;
+	padding-left: 25px;
+}
+
+li {
+	margin-bottom: 5px;
+}
+
+.sub {
+	font-size: 13px;
+	margin-left:25px;
+	margin-bottom:3px;
 }
