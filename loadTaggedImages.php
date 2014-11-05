@@ -1,6 +1,7 @@
 <?php
 
-	function loadImages($page, $sfw, $tags, $loaded = 0){
+	function loadImages($page, $sfw, $tags, $loaded = 0, $gutter){
+		echo $gutter;
 		if($tags === ""){
 			$tags = " ";
 		}
@@ -16,27 +17,27 @@
 				$rating = $xml->post[$i]['rating'];
 				$prevPath = (string) $xml->post[$i]['preview_url'];
 				$id = (string) $xml->post[$i]['id'];
+
+				$currentDiv = 	'<div class="grid-item">'.
+									'<a href=http://konachan.com/post/show/'.$id.' target="_blank">'.
+										'<img  style="margin-bottom:'.$gutter.'px" src="'.$prevPath.'" />'.
+									'</a>'.
+								'</div>';
+
 				if($sfw == 1){
 					if($rating == 's'){
-						$currentDiv = '<div class="grid-item">'."<a href=http://konachan.com/post/show/".
-										$id." target='_blank'><img src='".$prevPath."' /></a>".'</div>';
 						echo $currentDiv.'`';
 					}
 				} else if($sfw == 2){
 					if($rating == 'q' || $rating == 'e'){
-						$currentDiv = '<div class="grid-item">'."<a href=http://konachan.com/post/show/".
-										$id." target='_blank'><img src='".$prevPath."' /></a>".'</div>';
 						echo $currentDiv.'`';
 					}
 				} else if($sfw == 3){
 					if($rating == 'e'){
-						$currentDiv = '<div class="grid-item">'."<a href=http://konachan.com/post/show/".
-										$id." target='_blank'><img src='".$prevPath."' /></a>".'</div>';
+						
 						echo $currentDiv.'`';
 					}
 				} else {
-					$currentDiv = '<div class="grid-item">'."<a href=http://konachan.com/post/show/".
-									$id." target='_blank'><img src='".$prevPath."' /></a>".'</div>';
 					echo $currentDiv.'`';
 				}
 				
@@ -91,10 +92,12 @@
 	
 	if((isset($_POST['pageNo']) && !empty($_POST['pageNo'])) &&
 			(isset($_POST['sfw']) &&!empty($_POST['sfw'])) &&
-			(isset($_POST['tags']) && !empty($_POST['tags']))) {
+			(isset($_POST['tags']) && !empty($_POST['tags'])) &&
+			(isset($_POST['gutter']) && !empty($_POST['gutter']))) {
 		$pageNo = $_POST['pageNo'];
 		$sfw = $_POST['sfw'];
 		$tags = $_POST['tags'];
-		loadImages($pageNo, $sfw, $tags);
+		$gutter = $_POST['gutter'];
+		loadImages($pageNo, $sfw, $tags, 0, (string)$gutter);
 	}
 ?>

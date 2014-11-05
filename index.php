@@ -25,6 +25,7 @@
 
 		<script src="css/jquery-1.11.1.min.js"></script>
 		<script src="css/masonry.pkgd.min.js"></script> 
+		<script src="css/detectmobilebrowser.js"></script>
 		<script src="main.js"></script>
 		<script>
 		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

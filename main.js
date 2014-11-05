@@ -1,12 +1,14 @@
 var imageWidth = 300;
 var w = $('body').innerWidth();
-var startW = w-17;
+if(jQuery.browser.mobile){
+	var startW = w;
+} else {
+	var startW = w-17;
+}
 var imageCount = parseInt((startW)/imageWidth);
 var widthOfImages = (imageCount*imageWidth);
 var gutterSize = (startW-widthOfImages)/(imageCount+1);
-$('#content').css(
-	'margin-left', gutterSize
-	);
+$('#content').css('margin-left', gutterSize);
 // console.log(startW);
 // console.log(parseInt(gutterSize));
 // console.log(gutterSize);
@@ -82,7 +84,8 @@ function loadMore(i){
 		data: {pageNo: count,
 				sfw: sfw,
 				tags: localTags,
-				loaded: 1},
+				loaded: 1,
+				gutter: gutterSize},
 		type: 'POST',
 		success: function(output) {
 			if(output == " "){
@@ -140,7 +143,8 @@ i = (typeof i === "undefined") ? 20 : i;
 	$.ajax({ url: 'loadTaggedImages.php',
 		data: {pageNo: count,
 				sfw: sfw,
-				tags: localTags},
+				tags: localTags,
+				gutter: gutterSize},
 		type: 'POST',
 		success: function(output) {
 			if(output == " "){
