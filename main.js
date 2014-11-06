@@ -25,6 +25,7 @@ if(newURL != ""){
 	}
 }
 
+if(localStorage.getItem("sites") == null) localStorage.setItem("sites", "kona");
 var localSites = localStorage.getItem("sites").split(",");
 console.log(localSites);
 
