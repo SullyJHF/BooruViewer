@@ -27,14 +27,16 @@
 				<li>To load more images you can scroll to the bottom of the page  or press 'L'</li>
 				<li>Press 'O' for options</li>
 				<li class="sub">Rating - How safe for work you want the images to be</li>
+				<li class="sub">Sites - Choose the sites to display images from</li>
 				<li class="sub">Tags - The tags you want to return results for, separated by spaces</li>
+				<li class="sub">Image Width - Choose the width of each image</li>
 				<li class="sub">Search - Refreshes the page, loading images with the selected options (Safe is default if nothing is selected)</li>
 				<li class="sub">Load More - Loads more images in the background</li>
 				<li class="sub">Clear - Clears the form</li>
 				<li class="sub">Log Out - Logs you off the page</li>
 			</ul>
 			<br>
-			<small>I do not own any of the images on this site, contact the respective Booru's admins if you have issues with any pictures you see</small>
+			<small>I do not own any of the images on this site, contact the respective sites's admins if you have issues with any pictures you see</small>
 		</div>
 		<div id="options" style="display:none;">
 			<div id="tagForm">
@@ -51,8 +53,13 @@
 					<input id="s" type="checkbox" name="s" value="safe" /> Safe<br>
 					<input id="q" type="checkbox" name="q" value="questionable" /> Questionable<br>
 					<input id="x" type="checkbox" name="x" value="explicit" /> Explicit<br><br>
+					<h2>Sites:</h2><br>
+					<input id="kona" type="checkbox" name="kona" value="kona" /> Konachan<br>
+					<input id="dan" type="checkbox" name="dan" value="dan" /> Danbooru <small>(low quality thumbnails)</small><br><br>
 					<h2>Tags:</h2><small> Remember the tags are very specific</small><br><br>
 					<input id="inputTags" type="text" name="tags" /> <br><br>
+					<h2>Image Width:</h2><br>
+					<input id="inputWidth" type="text" name="width" /> <br><br>
 					<input id="formSubmit" type="submit" name="submit" value="Search" />
 					<input type="reset" name="reset" value="Clear" />
 					<input id="formGutter" style="display:none;" type="text" name="formGutter" readonly="">
