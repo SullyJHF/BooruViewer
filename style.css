@@ -94,8 +94,8 @@ p{
 	background:#222;
 	border-radius: 5px;
 	z-index:19;
-	height:360px;
-	width:300px;
+	height:320px;
+	width:346px;
 	padding:20px;
 	font-family: 'Droid Sans', sans-serif;
 	border: solid 2px #ccc;
@@ -180,7 +180,7 @@ h2 {
 	background:#222;
 	border-radius: 5px;
 	z-index:19;
-	height:370px;
+	height:430px;
 	width:500px;
 	padding:20px;
 	font-family: 'Droid Sans', sans-serif;
@@ -205,4 +205,8 @@ li {
 
 small {
 	font-size: smaller;
+}
+
+#oTable tr td {
+	width:175px;
 }

@@ -29,10 +29,12 @@
 				<li class="sub">Rating - How safe for work you want the images to be</li>
 				<li class="sub">Sites - Choose the sites to display images from</li>
 				<li class="sub">Tags - The tags you want to return results for, separated by spaces</li>
-				<li class="sub">Image Width - Choose the width of each image</li>
 				<li class="sub">Search - Refreshes the page, loading images with the selected options (Safe is default if nothing is selected)</li>
+				<li class="sub">Clear - Clears the whole form</li>
 				<li class="sub">Load More - Loads more images in the background</li>
-				<li class="sub">Clear - Clears the form</li>
+				<li class="sub">Shuffle - Choose whether to shuffle the images so that the different sites don't appear in clumps</li>
+				<li class="sub">Fixed Widths - Choose whether to have each image a fixed width (no gaps) or allow them to be varying in multiples of Image Width (no distorting images)</li>
+				<li class="sub">Image Width - Choose the width of each image</li>
 				<li class="sub">Log Out - Logs you off the page</li>
 			</ul>
 			<br>
@@ -41,28 +43,59 @@
 		<div id="options" style="display:none;">
 			<div id="tagForm">
 				<form onSubmit="return false;">
-					<div class="close">x</div>
+					
 					<div class="space"></div>
-					<div class="rightOut">
-						<input id="logOut" type="button" name="logout" value="Log out" />
-					</div>
-					<div class="rightLoad">
-						<input id="loadMore" type="button" name="load" value="Load More" />
-					</div>
-					<h2>Rating:</h2><br>
-					<input id="s" type="checkbox" name="s" value="safe" /> Safe<br>
-					<input id="q" type="checkbox" name="q" value="questionable" /> Questionable<br>
-					<input id="x" type="checkbox" name="x" value="explicit" /> Explicit<br><br>
-					<h2>Sites:</h2><br>
-					<input id="kona" type="checkbox" name="kona" value="kona" /> Konachan<br>
-					<input id="dan" type="checkbox" name="dan" value="dan" /> Danbooru <small>(low quality thumbnails)</small><br><br>
-					<h2>Tags:</h2><small> Remember the tags are very specific</small><br><br>
-					<input id="inputTags" type="text" name="tags" /> <br><br>
-					<h2>Image Width:</h2><br>
-					<input id="inputWidth" type="text" name="width" /> <br><br>
-					<input id="formSubmit" type="submit" name="submit" value="Search" />
-					<input type="reset" name="reset" value="Clear" />
-					<input id="formGutter" style="display:none;" type="text" name="formGutter" readonly="">
+					
+					<table id="oTable" style="width:100%;">
+						<tr>
+							<td>
+								<h2>Rating:</h2><br>
+								<input id="s" type="checkbox" name="s" value="safe" /> Safe<br>
+								<input id="q" type="checkbox" name="q" value="questionable" /> Questionable<br>
+								<input id="x" type="checkbox" name="x" value="explicit" /> Explicit<br><br>
+							</td>
+							<td>
+								<div class="close">x</div>
+								<h2>Extra Options:</h2><br>
+								<input id="shuffle" type="checkbox" name="shuffle" value="shuffle" /> Shuffle<br>
+								<input id="fixedWidth" type="checkbox" name="fixedWidth" value="fixedWidth" /> Fixed Widths<br><br>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h2>Sites:</h2><br>
+								<input id="kona" type="checkbox" name="kona" value="kona" /> Konachan<br>
+								<input id="yan" type="checkbox" name="yan" value="yan" /> Yande.re<br>
+								<input id="dan" type="checkbox" name="dan" value="dan" /> Danbooru<br><small>(low quality thumbnails)</small><br><br>
+							</td>
+							<td>
+								<h2>Image Width:</h2><br>
+								<input style="width:120px;" id="inputWidth" type="text" name="width" /> <br><br>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<h2>Tags:</h2><small> Remember the tags are very specific</small><br><br>
+								<input style="width:120px;" id="inputTags" type="text" name="tags" /> <br><br>
+							</td>
+							<td>
+								<div class="rightOut">
+									<input id="logOut" type="button" name="logout" value="Log out" />
+								</div>
+								<div class="rightLoad">
+									<input id="loadMore" type="button" name="load" value="Load More" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								
+								<input id="formSubmit" type="submit" name="submit" value="Search" />
+								<input type="reset" name="reset" value="Clear" />
+								<input id="formGutter" style="display:none;" type="text" name="formGutter" readonly="">
+							</td>
+						</tr>
+					</table>
 				</form>
 			</div>
 		</div>

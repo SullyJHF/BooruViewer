@@ -27,7 +27,8 @@ if(newURL != ""){
 
 if(localStorage.getItem("sites") == null) localStorage.setItem("sites", "kona");
 var localSites = localStorage.getItem("sites").split(",");
-console.log(localSites);
+if(localStorage.getItem("sites") == null) localSites = "kona";
+// console.log(localSites);
 
 var localTags = localStorage.getItem("tags");
 if(localTags == null || localTags == ""){
@@ -38,12 +39,19 @@ if(localTags != " "){
 }
 
 var sfw = localStorage.getItem("sfw").split(",");
+if(localStorage.getItem("sfw") == null) sfw = 's';
 console.log(sfw);
 if(sfw[0] != 'x' && sfw[0] != 'q' && sfw[0] != 's') sfw[0] = 's';
 if(sfw[0] != "") document.title = "- "+document.title;
 for(i = 0; i < sfw.length; i++){
 	document.title = sfw[i].toUpperCase() +" "+ document.title;
 }
+
+var localShuffle = localStorage.getItem("shuffle");
+if(localStorage.getItem("shuffle") == null) localShuffle = 0;
+
+var localFixed = localStorage.getItem("fixedWidth");
+if(localStorage.getItem("fixedWidth") == null) localFixed = 1;
 
 var container = document.querySelector('#content');
 var msnry = new Masonry(container, {
@@ -88,7 +96,9 @@ function loadMore(i){
 				loaded: 1,
 				gutter: gutterSize,
 				sites: localSites,
-				width: imageWidth},
+				width: imageWidth,
+				shuffle: localShuffle,
+				fixed: localFixed},
 		type: 'POST',
 		success: function(output) {
 			console.log(output);
@@ -150,9 +160,12 @@ i = (typeof i === "undefined") ? 20 : i;
 				tags: localTags,
 				gutter: gutterSize,
 				sites: localSites,
-				width: imageWidth},
+				width: imageWidth,
+				shuffle: localShuffle,
+				fixed: localFixed},
 		type: 'POST',
 		success: function(output) {
+			// console.log(output);
 			if(output == " "){
 				$("#notFound").fadeIn(300).delay(5000).fadeOut(300);
 				localTags = " ";
@@ -328,10 +341,15 @@ $('#formSubmit').click(function(){
 	localStorage.setItem("sfw", sfw);
 	var sites = [];
 	if($('#kona').prop('checked')) sites.push('kona');
+	if($('#yan').prop('checked')) sites.push('yan');
 	if($('#dan').prop('checked')) sites.push('dan');
 	if(sites[0] == null || sites[0] == 'undefined') sites.push('kona');
 	localStorage.setItem("sites", sites);
 	localStorage.setItem("width", $('#inputWidth').val());
+	var checked = ($('#shuffle').prop('checked') ? 1 : 0);
+	localStorage.setItem("shuffle", checked);
+	var checked = ($('#fixedWidth').prop('checked') ? 1 : 0);
+	localStorage.setItem("fixedWidth", checked);
 	window.location = window.location;
 	// console.log(sfw);
 	// console.log(tags)
@@ -351,6 +369,9 @@ if($.inArray('s', sfw) >= 0){
 if($.inArray('kona', localSites) >= 0){
 	$('#kona').prop('checked', true);
 }
+if($.inArray('yan', localSites) >= 0){
+	$('#yan').prop('checked', true);
+}
 if($.inArray('dan', localSites) >= 0){
 	$('#dan').prop('checked', true);
 }
@@ -363,6 +384,18 @@ if(localTags == " "){
 	$('#inputTags').val(localTags);
 }
 
+if(localShuffle == 1){
+	$('#shuffle').prop('checked', true);
+} else {
+	$('#shuffle').prop('checked', false);
+}
+
+if(localFixed == 1){
+	$('#fixedWidth').prop('checked', true);
+} else {
+	$('#fixedWidth').prop('checked', false);
+}
+
 $(document).ready(function(){
 	if(localStorage.getItem("returnUser") != '1'){
 		helpOpen = true;
@@ -371,4 +404,9 @@ $(document).ready(function(){
 		localStorage.setItem('returnUser', '1');
 	}
 });
+
+$(window).scroll(function(){
+	moveMasonry();
+});
+
 $(window).scroll(bindScroll);
