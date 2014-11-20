@@ -45,7 +45,7 @@ if(localStorage.getItem("sfw") == null) {
 } else {
 	var sfw = localStorage.getItem("sfw").split(",");
 }
-console.log(sfw);
+// console.log(sfw);
 if(sfw[0] != 'x' && sfw[0] != 'q' && sfw[0] != 's') sfw[0] = 's';
 if(sfw[0] != "") document.title = "- "+document.title;
 for(i = 0; i < sfw.length; i++){
@@ -106,7 +106,7 @@ function loadMore(i){
 				fixed: localFixed},
 		type: 'GET',
 		success: function(output) {
-			console.log(output);
+			// console.log(output);
 			if(output == " "){
 				$("#notFound").fadeIn(300).delay(5000).fadeOut(300);
 				localTags = " ";
