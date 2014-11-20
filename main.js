@@ -104,7 +104,7 @@ function loadMore(i){
 				width: imageWidth,
 				shuffle: localShuffle,
 				fixed: localFixed},
-		type: 'POST',
+		type: 'GET',
 		success: function(output) {
 			console.log(output);
 			if(output == " "){
@@ -168,7 +168,7 @@ i = (typeof i === "undefined") ? 20 : i;
 				width: imageWidth,
 				shuffle: localShuffle,
 				fixed: localFixed},
-		type: 'POST',
+		type: 'GET',
 		success: function(output) {
 			// console.log(output);
 			if(output == " "){

@@ -1,7 +1,7 @@
 <?php
 
 	function loadImages($page, $sfw, $tags, $loaded = 0, $gutter, $sites, $width, $shuffle, $fixed){
-		// print_r($_POST);
+		// print_r($_GET);
 		// echo "<br>";
 		// echo $gutter;
 
@@ -212,23 +212,23 @@
 		}
 	}
 
-	if((isset($_POST['pageNo']) && !empty($_POST['pageNo'])) &&
-			(isset($_POST['sfw']) &&!empty($_POST['sfw'])) &&
-			(isset($_POST['tags']) && !empty($_POST['tags'])) &&
-			(isset($_POST['gutter']) && !empty($_POST['gutter'])) &&
-			(isset($_POST['sites']) && !empty($_POST['sites']))&&
-			(isset($_POST['width']) && !empty($_POST['width']))&&
-			(isset($_POST['shuffle']))&&
-			(isset($_POST['fixed']))) {
-		$pageNo = $_POST['pageNo'];
-		$sfw = $_POST['sfw'];
-		$tags = $_POST['tags'];
-		$loaded = $_POST['loaded'];
-		$gutter = $_POST['gutter'];
-		$sites = $_POST['sites'];
-		$width = $_POST['width'];
-		$shuffle = $_POST['shuffle'];
-		$fixed = $_POST['fixed'];
+	if((isset($_GET['pageNo']) && !empty($_GET['pageNo'])) &&
+			(isset($_GET['sfw']) &&!empty($_GET['sfw'])) &&
+			(isset($_GET['tags']) && !empty($_GET['tags'])) &&
+			(isset($_GET['gutter']) && !empty($_GET['gutter'])) &&
+			(isset($_GET['sites']) && !empty($_GET['sites']))&&
+			(isset($_GET['width']) && !empty($_GET['width']))&&
+			(isset($_GET['shuffle']))&&
+			(isset($_GET['fixed']))) {
+		$pageNo = $_GET['pageNo'];
+		$sfw = $_GET['sfw'];
+		$tags = $_GET['tags'];
+		$loaded = $_GET['loaded'];
+		$gutter = $_GET['gutter'];
+		$sites = $_GET['sites'];
+		$width = $_GET['width'];
+		$shuffle = $_GET['shuffle'];
+		$fixed = $_GET['fixed'];
 		loadImages($pageNo, $sfw, $tags, $loaded, $gutter, $sites, $width, $shuffle, $fixed);
 	}
 ?>
