@@ -38,8 +38,13 @@ if(localTags != " "){
 	document.title = localTags;
 }
 
-var sfw = localStorage.getItem("sfw").split(",");
-if(localStorage.getItem("sfw") == null) sfw = 's';
+if(localStorage.getItem("sfw") == null) {
+	var sfw = [];
+	sfw.push('s');
+	localStorage.setItem("sfw", 's');
+} else {
+	var sfw = localStorage.getItem("sfw").split(",");
+}
 console.log(sfw);
 if(sfw[0] != 'x' && sfw[0] != 'q' && sfw[0] != 's') sfw[0] = 's';
 if(sfw[0] != "") document.title = "- "+document.title;
