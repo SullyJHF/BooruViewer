@@ -1,6 +1,4 @@
-<?php 
-	//ini_set('session.gc_maxlifetime', time()+60*60*24*365);
-	//session_set_cookie_params(time()+60*60*24*365);
+<?php
 	session_start();
 	require('access.php');
 ?>
@@ -16,6 +14,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
 	</head>
 	<body>
+		<div id="loading" style="display:none;"><p>Loading...</p></div>
 		<div id="dark" style="display:none;"></div>
 		<div id="help" style="display:none;">
 			<div class="close">x</div>

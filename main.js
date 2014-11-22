@@ -157,6 +157,9 @@ function bindScroll(){
 	}
 }
 
+
+// Initial loading of site
+$('#loading').css('display', 'inline');
 function start(i){
 i = (typeof i === "undefined") ? 20 : i;
 	$.ajax({ url: 'loadTaggedImages.php',
@@ -170,6 +173,7 @@ i = (typeof i === "undefined") ? 20 : i;
 				fixed: localFixed},
 		type: 'GET',
 		success: function(output) {
+			$('#loading').hide();
 			// console.log(output);
 			if(output == " "){
 				$("#notFound").fadeIn(300).delay(5000).fadeOut(300);

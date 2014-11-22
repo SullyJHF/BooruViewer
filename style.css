@@ -210,3 +210,19 @@ small {
 #oTable tr td {
 	width:175px;
 }
+
+#loading {
+	position: absolute;
+	width:250px;
+	top:10%;
+	left:0;
+	right:0;
+	margin:auto;
+	font-family: 'Droid Sans', sans-serif;
+	font-size: 50px;
+	z-index: 999;
+}
+
+#loading p {
+	text-align: center;
+}
