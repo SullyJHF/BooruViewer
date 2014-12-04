@@ -93,61 +93,63 @@ var count = 1;
 var nullCount = 0;
 var showed = 0;
 function loadMore(i){
-	i = (typeof i === "undefined") ? 5 : i;
-	$.ajax({ url: 'loadTaggedImages.php',
-		data: {pageNo: count,
-				sfw: sfw,
-				tags: localTags,
-				loaded: 1,
-				gutter: gutterSize,
-				sites: localSites,
-				width: imageWidth,
-				shuffle: localShuffle,
-				fixed: localFixed},
-		type: 'GET',
-		success: function(output) {
-			// console.log(output);
-			if(output == " "){
-				$("#notFound").fadeIn(300).delay(5000).fadeOut(300);
-				localTags = " ";
-				loadMore();
-			} else {
-				if(output == ""){
-					nullCount++;
-					if(nullCount > 10 && showed != 1){
-						showed = 1;
-						$("#noContent").fadeIn(300).delay(5000).fadeOut(300);
-						//console.log("No data recieved for more than 10 reqeuests");
-						return;
-					}
-					//console.log("Loaded page: "+count+" But nothing was there.");
-					if(i == 0){
-						return;
-					}
-					//console.log(i);
-					var b = i-1;
-					
-					if(output != ""){
-						//$(window).bind('scroll', bindScroll);
-						return;
-					}
-					count++;
-					loadMore(b);
-					return;
+	if(!showed){
+		i = (typeof i === "undefined") ? 5 : i;
+		$.ajax({ url: 'loadTaggedImages.php',
+			data: {pageNo: count,
+					sfw: sfw,
+					tags: localTags,
+					loaded: 1,
+					gutter: gutterSize,
+					sites: localSites,
+					width: imageWidth,
+					shuffle: localShuffle,
+					fixed: localFixed},
+			type: 'GET',
+			success: function(output) {
+				// console.log(output);
+				if(output == " "){
+					$("#notFound").fadeIn(300).delay(5000).fadeOut(300);
+					localTags = " ";
+					loadMore();
 				} else {
-					nullCount = 0;
-					var divs = output.split("`");
-					$('#content').append(divs);
-					moveMasonry();
-					//console.log("Loaded page: "+count);
+					if(output == ""){
+						nullCount++;
+						if(nullCount > 10 && showed != 1){
+							showed = 1;
+							$("#noContent").fadeIn(300).delay(5000).fadeOut(300);
+							//console.log("No data recieved for more than 10 reqeuests");
+							return;
+						}
+						//console.log("Loaded page: "+count+" But nothing was there.");
+						if(i == 0){
+							return;
+						}
+						//console.log(i);
+						var b = i-1;
+						
+						if(output != ""){
+							//$(window).bind('scroll', bindScroll);
+							return;
+						}
+						count++;
+						loadMore(b);
+						return;
+					} else {
+						nullCount = 0;
+						var divs = output.split("`");
+						$('#content').append(divs);
+						moveMasonry();
+						//console.log("Loaded page: "+count);
+					}
 				}
 			}
-		}
-	});
-	count++;
-	//console.log("count "+count);
-	$(window).bind('scroll', bindScroll);
-	moveMasonry();
+		});
+		count++;
+		//console.log("count "+count);
+		$(window).bind('scroll', bindScroll);
+		moveMasonry();
+	}
 }
 
 function bindScroll(){
