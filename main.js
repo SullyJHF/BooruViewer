@@ -71,9 +71,9 @@ var msnry = new Masonry(container, {
 		}
 	});
 	
-$(window).load(function(){
-	moveMasonry();
-});
+// $(window).load(function(){
+// 	moveMasonry();
+// });
 	
 function moveMasonry(){
 	msnry = new Masonry(container, {
@@ -231,7 +231,7 @@ i = (typeof i === "undefined") ? 20 : i;
 	//console.log("count "+count);
 }
 start();
-moveMasonry();
+// moveMasonry();
 
 var optionsOpen = false;
 var helpOpen = false;
@@ -416,8 +416,8 @@ $(document).ready(function(){
 	}
 });
 
-$(window).scroll(function(){
+setInterval(function(){
 	moveMasonry();
-});
+}, 200);
 
 $(window).scroll(bindScroll);
