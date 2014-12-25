@@ -1,10 +1,13 @@
 <?php
-
+	# Enable Error Reporting and Display:
+	// error_reporting(~0);
+	// ini_set('display_errors', 1);
+	
 	function loadImages($page, $sfw, $tags, $loaded = 0, $gutter, $sites, $width, $shuffle, $fixed){
 		// print_r($_GET);
 		// echo "<br>";
 		// echo $gutter;
-
+		$tags = str_replace(" ", "+", $tags);
 		$k = "http://konachan.com";
 		$y = "http://yande.re";
 		$d = "http://danbooru.donmai.us";
@@ -178,16 +181,24 @@
 		$trueCount = 0;
 		$found = false;
 		$badTag = "";
-		$tagArray = explode(" ", $tags);
+		$tagArray = explode("+", $tags);
+		// print_r($tagArray);
 		foreach($tagArray as $tag){
+			// $tag = str_replace("\"", "", $tag);
+			// echo $tag."<br>";
 			if(strrpos($tag, 'width:') !== false || strrpos($tag, 'height:') !== false || strrpos($tag, 'order:') !== false || strrpos($tag, 'rating:') !== false){
 				$trueCount++;
 				$found = true;
 				continue;
 			}
-			$kContent = file_get_contents('http://konachan.com/tag.xml?name='.$tag);
+			$url = 'http://www.konachan.com/tag.xml?name='.$tag;
+			$kContent = file_get_contents($url);
+			// echo file_get_contents($url);
 			$kXml = new SimpleXMLElement($kContent);
-			$kCount = $kXml->count();
+			// echo $url."<br>";
+			// echo $kXml."<br><br>";
+			// echo $kContent."<br><br>";
+			$kCount = count($kXml->children());
 			for($i = 0; $i < $kCount; $i++){
 				$currentName = (string) $kXml->tag[$i]['name'];
 				if($currentName === $tag){
@@ -212,6 +223,8 @@
 		}
 	}
 
+
+
 	if((isset($_GET['pageNo']) && !empty($_GET['pageNo'])) &&
 			(isset($_GET['sfw']) &&!empty($_GET['sfw'])) &&
 			(isset($_GET['tags']) && !empty($_GET['tags'])) &&
@@ -222,7 +235,7 @@
 			(isset($_GET['fixed']))) {
 		$pageNo = $_GET['pageNo'];
 		$sfw = $_GET['sfw'];
-		$tags = $_GET['tags'];
+		$tags = substr($_GET['tags'], 1, strlen($_GET['tags'])-2);
 		$loaded = $_GET['loaded'];
 		$gutter = $_GET['gutter'];
 		$sites = $_GET['sites'];

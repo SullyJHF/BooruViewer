@@ -107,6 +107,10 @@ function loadMore(i){
 					fixed: localFixed},
 			type: 'GET',
 			success: function(output) {
+				if(output == "500"){
+					console.log("memes");
+				}
+				$('#loading').hide();
 				// console.log(output);
 				if(output == " "){
 					$("#notFound").fadeIn(300).delay(5000).fadeOut(300);
@@ -160,6 +164,7 @@ function bindScroll(){
 }
 
 
+
 // Initial loading of site
 $('#loading').css('display', 'inline');
 function start(i){
@@ -167,7 +172,7 @@ i = (typeof i === "undefined") ? 20 : i;
 	$.ajax({ url: 'loadTaggedImages.php',
 		data: {pageNo: count,
 				sfw: sfw,
-				tags: localTags,
+				tags: JSON.stringify(localTags),
 				gutter: gutterSize,
 				sites: localSites,
 				width: imageWidth,
