@@ -2,8 +2,13 @@
 	# Enable Error Reporting and Display:
 	// error_reporting(~0);
 	// ini_set('display_errors', 1);
-	
+
 	function loadImages($page, $sfw, $tags, $loaded = 0, $gutter, $sites, $width, $shuffle, $fixed){
+		$ctx = stream_context_create(array(
+			'http' => array (
+				'ignore_errors' => TRUE
+			)
+		));
 		// print_r($_GET);
 		// echo "<br>";
 		// echo $gutter;
@@ -19,21 +24,39 @@
 		}
 
 		if($loaded === 1 || checkTags($tags)){
-			$kContent = file_get_contents($k.'/post.xml?page='.$page.'&tags='.$tags);
-			$yContent = file_get_contents($y.'/post.xml?page='.$page.'&tags='.$tags);
-			$dContent = file_get_contents($d.'/posts.xml?page='.$page.'&tags='.$tags);
-			$kXml = new SimpleXMLElement($kContent);
-			$yXml = new SimpleXMLElement($yContent);
-			$dXml = new SimpleXMLElement($dContent);
+			$kFailed = false;
+			$yFailed = false;
+			$dFailed = false;
+			try{
+				$kContent = file_get_contents($k.'/post.xml?page='.$page.'&tags='.$tags);
+			} catch(Exception $e){
+				$kFailed = true;
+			}
+			try{
+				$yContent = file_get_contents($y.'/post.xml?page='.$page.'&tags='.$tags);
+			} catch(Exception $e){
+				$yFailed = true;
+			}
+			try{
+				$dContent = file_get_contents($d.'/posts.xml?page='.$page.'&tags='.$tags, FALSE, $ctx);
+			} catch(Exception $e){
+				$dFailed = true;
+			}
+
+			if($dContent == "You cannot search for more than 2 tags at a time") $dFailed = true;
+
+			if(!$kFailed) $kXml = new SimpleXMLElement($kContent);
+			if(!$yFailed) $yXml = new SimpleXMLElement($yContent);
+			if(!$dFailed) $dXml = new SimpleXMLElement($dContent);
 			// $kCount = $kXml->count();
-			$kCount = count($kXml->children());
-			$yCount = count($yXml->children());
-			$dCount = count($dXml->children());
+			if(!$kFailed) $kCount = count($kXml->children());
+			if(!$yFailed) $yCount = count($yXml->children());
+			if(!$dFailed) $dCount = count($dXml->children());
 			#echo $kXml->count();
 			#echo $kXml->post[0]['file_url'];
 			#echo $kXml->post[0]['rating'];
 			if($loaded === 1 || checkTags($tags)){
-				if(in_array("kona", $sites)){
+				if(in_array("kona", $sites) && !$kFailed){
 					for($i = 0; $i < $kCount; $i++){
 						$rating = $kXml->post[$i]['rating'];
 						$prevPath = (string) $kXml->post[$i]['preview_url'];
@@ -77,7 +100,7 @@
 					}
 				}
 
-				if(in_array("yan", $sites)){
+				if(in_array("yan", $sites) && !$yFailed){
 					for($i = 0; $i < $yCount; $i++){
 						$rating = $yXml->post[$i]['rating'];
 						$prevPath = (string) $yXml->post[$i]['preview_url'];
@@ -122,7 +145,7 @@
 					}
 				}
 
-				if(in_array("dan", $sites)){
+				if(in_array("dan", $sites) && !$dFailed){
 					for($i = 0; $i < $dCount; $i++){
 						$rating = $dXml->post[$i]->rating;
 						$path = $dXml->post[$i]->{'preview-file-url'};
