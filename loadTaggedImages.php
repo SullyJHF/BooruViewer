@@ -198,6 +198,7 @@
 	}
 
 	function checkTags($tags){
+		if($tags == "+") $tags = " ";
 		if($tags == " "){
 			return true;
 		}
