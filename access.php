@@ -18,7 +18,7 @@
 		if (sha1($_POST['password']) == $password) {
 			//$_SESSION['loggedIn'] = true;
 			setcookie("loggedin", 1, time()+60*60*24*365);
-			header('Location: ' . '/BooruViewer');
+			header('Location: ' . '/');
 		} else {
 			die ('Incorrect password');
 		}
