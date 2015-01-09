@@ -58,35 +58,63 @@ if(localStorage.getItem("shuffle") == null) localShuffle = 0;
 var localFixed = localStorage.getItem("fixedWidth");
 if(localStorage.getItem("fixedWidth") == null) localFixed = 1;
 
-var container = document.querySelector('#content');
-var msnry = new Masonry(container, {
+var container = $('#content');
+// var msnry = new Masonry(container, {
+// 		gutter: gutterSize,
+// 		itemSelector : '.grid-item',
+// 		columnWidth : imageWidth,
+// 		isAnimated: true,
+// 		animationOptions: {
+// 			duration: 700,
+// 			easing: 'linear',
+// 			queue: false
+// 		}
+// 	});
+	
+	container.masonry({
 		gutter: gutterSize,
 		itemSelector : '.grid-item',
 		columnWidth : imageWidth,
+		transitionDuration: 0/*
 		isAnimated: true,
 		animationOptions: {
-			duration: 700,
+			duration: 0,
 			easing: 'linear',
 			queue: false
-		}
+		}*/
 	});
-	
+
 // $(window).load(function(){
 // 	moveMasonry();
 // });
 	
 function moveMasonry(){
-	msnry = new Masonry(container, {
-		gutter: gutterSize,
-		itemSelector : '.grid-item',
-		columnWidth : imageWidth,
-		isAnimated: true,
-		animationOptions: {
-			duration: 700,
-			easing: 'linear',
-			queue: false
-		}
-	});
+	// msnry = new Masonry(container, {
+	// 	gutter: gutterSize,
+	// 	itemSelector : '.grid-item',
+	// 	columnWidth : imageWidth,
+	// 	isAnimated: true,
+	// 	animationOptions: {
+	// 		duration: 700,
+	// 		easing: 'linear',
+	// 		queue: false
+	// 	}
+	// });
+	// msnry.reloadItems();
+	// container.masonry('reloadItems');
+	// container.masonry('layout');
+	container.masonry('reloadItems');
+	container.masonry('layout');
+}
+
+function addDivs(divs){
+
+	// divs = divs.join('');
+	// console.log(divs);
+	container.append(divs).masonry('appended', divs, true);
+	container.masonry('reloadItems');
+	container.masonry('layout');
+
 }
 	
 var count = 1;
@@ -98,7 +126,7 @@ function loadMore(i){
 		$.ajax({ url: 'loadTaggedImages.php',
 			data: {pageNo: count,
 					sfw: sfw,
-					tags: localTags,
+					tags: JSON.stringify(localTags),
 					loaded: 1,
 					gutter: gutterSize,
 					sites: localSites,
@@ -142,8 +170,10 @@ function loadMore(i){
 					} else {
 						nullCount = 0;
 						var divs = output.split("`");
-						$('#content').append(divs);
-						moveMasonry();
+						// $('#content').append(divs);
+
+						// container.append(divs);
+						addDivs(divs);
 						//console.log("Loaded page: "+count);
 					}
 				}
@@ -201,7 +231,7 @@ i = (typeof i === "undefined") ? 20 : i;
 						if(nullCount > 10 && showed != 1){
 							showed = 1;
 							$("#noContent").fadeIn(300).delay(5000).fadeOut(300);
-							//console.log("No data recieved for more than 10 reqeuests");
+							//console.log("No data received for more than 10 requests");
 							return;
 						}
 						//console.log("Didn't load page: "+count+" because no content.");
@@ -221,8 +251,9 @@ i = (typeof i === "undefined") ? 20 : i;
 					nullCount = 0;
 					//console.log("Loaded page: "+count);
 					var divs = output.split("`");
-					$('#content').append(divs);
-					moveMasonry();
+					// $('#content').append(divs);
+					// container.append(divs);
+					addDivs(divs);
 					//console.log(i)
 					count++;
 					var b = i-1;
