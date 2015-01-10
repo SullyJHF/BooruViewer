@@ -16,14 +16,17 @@ $('#formGutter').val(String(gutterSize));
 // console.log(parseInt(gutterSize));
 // console.log(String(gutterSize));
 
-var newURL = window.location.search;
+
+//Not yet implemented
+//sharing links
+/*var newURL = window.location.search;
 if(newURL != ""){
 	newURL = newURL.substring(1);
 	var params = newURL.split("&");
 	for(i = 0; i<params.length;i++){
 		// console.log(params[i]);
 	}
-}
+}*/
 
 if(localStorage.getItem("sites") == null) localStorage.setItem("sites", "kona");
 var localSites = localStorage.getItem("sites").split(",");
@@ -112,9 +115,7 @@ function addDivs(divs){
 	// divs = divs.join('');
 	// console.log(divs);
 	container.append(divs).masonry('appended', divs, true);
-	container.masonry('reloadItems');
-	container.masonry('layout');
-
+	moveMasonry();
 }
 	
 var count = 1;
